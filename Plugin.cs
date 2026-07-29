@@ -61,7 +61,13 @@ public sealed class Plugin : IStellarPlugin
                                    () => $"{_snapshot.Stamina} / {_snapshot.MaxStamina}", Prefix: "Stamina"),
                     new TextElement(() => $"Pos {_snapshot.Position.X:0.0}, {_snapshot.Position.Y:0.0}, {_snapshot.Position.Z:0.0}"),
                 }, Gap: 4f),
-                Else: new TextElement(() => "Player not loaded"))));
+                Else: new TextElement(() => "Player not loaded")))
+        {
+            // Player vitals HUD: draw only while in-world, and follow the game HUD's
+            // visibility so it hides in cutscenes / menus that cover the game HUD.
+            ShouldRender = () => _services.ClientState.Phase == GamePhase.World
+                                 && (_services.ClientState.UiState & GameUIState.GameHudHidden) == 0,
+        });
 
         _toggleAction = _services.Hotkeys.DeclareAction(
             new HotkeyAction(
