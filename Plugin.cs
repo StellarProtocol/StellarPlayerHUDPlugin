@@ -63,10 +63,10 @@ public sealed class Plugin : IStellarPlugin
                 }, Gap: 4f),
                 Else: new TextElement(() => "Player not loaded")))
         {
-            // Player vitals HUD: draw only while in-world, and follow the game HUD's
-            // visibility so it hides in cutscenes / menus that cover the game HUD.
+            // Player vitals HUD: draw only while in-world, and hide behind blocking
+            // full-screen UI (old AutoHideBehindGameMenus) and the line-selector menu.
             ShouldRender = () => _services.ClientState.Phase == GamePhase.World
-                                 && (_services.ClientState.UiState & GameUIState.GameHudHidden) == 0,
+                                 && (_services.ClientState.UiState & (GameUIState.Blocking | GameUIState.AnyMenu)) == 0,
         });
 
         _toggleAction = _services.Hotkeys.DeclareAction(
