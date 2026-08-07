@@ -23,7 +23,7 @@ public sealed class Plugin : IStellarPlugin
     public string Name => "PlayerHUD";
 
     private readonly IPluginServices _services;
-    private readonly IHudHandle _hud;
+    private readonly IWindowControl _hud;
     private readonly IHotkeyAction _toggleAction;
     private readonly IHotkeyAction _pauseAction;
     private IColorSlot _hpSlot = null!;
@@ -42,11 +42,25 @@ public sealed class Plugin : IStellarPlugin
         // The HUD tree. The Conditional reproduces the IMGUI "Player not loaded" branch
         // (and lets the handler detach pre-login). Fill colours are read from the slots at
         // registration; live recolour is a later enhancement.
-        _hud = _services.Hud.Register(new HudSpec(
-            Id: "playerhud.main",
-            Anchor: HudAnchor.FreeOverlay,
-            DefaultRect: new WindowRect(2231f, 35f, 306f, 80f),
-            Root: new ConditionalElement(
+        _hud = _services.Windows.Register(new WindowRegistration(
+            new WindowSpec(
+                "playerhud.main",
+                "Player HUD",
+                new WindowRect(2231f, 35f, 306f, 80f),
+                WindowCategory.HUD,
+                WindowPanelStyle.Borderless)
+            {
+                Surface          = SurfaceStyle.HudOverlay,
+                Anchor           = WindowAnchor.TopLeft,
+                Draggable        = true,
+                EditModeDragOnly = true,
+                StartVisible     = true,
+                // Player vitals HUD: draw only while in-world, and hide behind blocking
+                // full-screen UI (old AutoHideBehindGameMenus) and the line-selector menu.
+                ShouldRender = () => _services.ClientState.Phase == GamePhase.World
+                                     && (_services.ClientState.UiState & (GameUIState.Blocking | GameUIState.AnyMenu)) == 0,
+            },
+            new ConditionalElement(
                 When: () => _snapshot.IsAvailable,
                 Then: new ColumnElement(new HudElement[]
                 {
@@ -61,13 +75,7 @@ public sealed class Plugin : IStellarPlugin
                                    () => $"{_snapshot.Stamina} / {_snapshot.MaxStamina}", Prefix: "Stamina"),
                     new TextElement(() => $"Pos {_snapshot.Position.X:0.0}, {_snapshot.Position.Y:0.0}, {_snapshot.Position.Z:0.0}"),
                 }, Gap: 4f),
-                Else: new TextElement(() => "Player not loaded")))
-        {
-            // Player vitals HUD: draw only while in-world, and hide behind blocking
-            // full-screen UI (old AutoHideBehindGameMenus) and the line-selector menu.
-            ShouldRender = () => _services.ClientState.Phase == GamePhase.World
-                                 && (_services.ClientState.UiState & (GameUIState.Blocking | GameUIState.AnyMenu)) == 0,
-        });
+                Else: new TextElement(() => "Player not loaded"))));
 
         _toggleAction = _services.Hotkeys.DeclareAction(
             new HotkeyAction(
