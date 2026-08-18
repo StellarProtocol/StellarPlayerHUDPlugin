@@ -1,13 +1,13 @@
 {
-  "hud.color.hpBar": "HP bar",
-  "hud.color.staminaBar": "Stamina bar",
-  "hud.hotkey.pause": "Pause PlayerHUD snapshot refresh",
-  "hud.hotkey.toggle": "Toggle PlayerHUD",
+  "hud.color.hpBar": "แถบ HP",
+  "hud.color.staminaBar": "แถบสตามินา",
+  "hud.hotkey.pause": "หยุดการรีเฟรชสแนปช็อต PlayerHUD",
+  "hud.hotkey.toggle": "สลับ PlayerHUD",
   "hud.hp": "HP",
   "hud.level": "Lv {0}",
-  "hud.notLoaded": "Player not loaded",
-  "hud.pos": "Pos {0:0.0}, {1:0.0}, {2:0.0}",
-  "hud.stamina": "Stamina",
-  "hud.unknownName": "(unknown)",
-  "hud.window.title": "Player HUD"
+  "hud.notLoaded": "ยังไม่ได้โหลดผู้เล่น",
+  "hud.pos": "ตำแหน่ง {0:0.0}, {1:0.0}, {2:0.0}",
+  "hud.stamina": "สตามินา",
+  "hud.unknownName": "(ไม่ทราบ)",
+  "hud.window.title": "HUD ผู้เล่น"
 }
