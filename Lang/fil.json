@@ -1,0 +1,13 @@
+{
+  "hud.color.hpBar": "Bar ng HP",
+  "hud.color.staminaBar": "Bar ng Stamina",
+  "hud.hotkey.pause": "I-pause ang pag-refresh ng snapshot ng PlayerHUD",
+  "hud.hotkey.toggle": "I-toggle ang PlayerHUD",
+  "hud.hp": "HP",
+  "hud.level": "Lv {0}",
+  "hud.notLoaded": "Hindi pa na-load ang manlalaro",
+  "hud.pos": "Pos {0:0.0}, {1:0.0}, {2:0.0}",
+  "hud.stamina": "Stamina",
+  "hud.unknownName": "(hindi kilala)",
+  "hud.window.title": "HUD ng Manlalaro"
+}

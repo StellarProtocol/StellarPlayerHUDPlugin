@@ -25,5 +25,6 @@
     <EmbeddedResource Include="Lang/ja.json" LogicalName="Stellar.PlayerHUD.Lang.ja.json" />
     <EmbeddedResource Include="Lang/th.json" LogicalName="Stellar.PlayerHUD.Lang.th.json" />
     <EmbeddedResource Include="Lang/id.json" LogicalName="Stellar.PlayerHUD.Lang.id.json" />
+    <EmbeddedResource Include="Lang/fil.json" LogicalName="Stellar.PlayerHUD.Lang.fil.json" />
   </ItemGroup>
 </Project>
