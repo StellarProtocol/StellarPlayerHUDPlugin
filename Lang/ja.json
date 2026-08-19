@@ -1,0 +1,13 @@
+{
+  "hud.color.hpBar": "HPバー",
+  "hud.color.staminaBar": "スタミナバー",
+  "hud.hotkey.pause": "PlayerHUDスナップショット更新を一時停止",
+  "hud.hotkey.toggle": "PlayerHUDの表示切替",
+  "hud.hp": "HP",
+  "hud.level": "Lv {0}",
+  "hud.notLoaded": "プレイヤー未読み込み",
+  "hud.pos": "座標 {0:0.0}, {1:0.0}, {2:0.0}",
+  "hud.stamina": "スタミナ",
+  "hud.unknownName": "（不明）",
+  "hud.window.title": "プレイヤーHUD"
+}

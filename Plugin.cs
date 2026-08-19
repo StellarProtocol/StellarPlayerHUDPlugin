@@ -23,6 +23,7 @@ public sealed class Plugin : IStellarPlugin
     public string Name => "PlayerHUD";
 
     private readonly IPluginServices _services;
+    private readonly ILocalization _loc;
     private readonly IWindowControl _hud;
     private readonly IHotkeyAction _toggleAction;
     private readonly IHotkeyAction _pauseAction;
@@ -35,6 +36,7 @@ public sealed class Plugin : IStellarPlugin
     public Plugin(IPluginServices services)
     {
         _services = services;
+        _loc = services.Localization;
         _services.Log.Info("[PlayerHUD] plugin constructed");
 
         RegisterColours();
@@ -45,7 +47,7 @@ public sealed class Plugin : IStellarPlugin
         _hud = _services.Windows.Register(new WindowRegistration(
             new WindowSpec(
                 "playerhud.main",
-                "Player HUD",
+                _loc.T("hud.window.title"),
                 new WindowRect(2231f, 35f, 306f, 80f),
                 WindowCategory.HUD,
                 WindowPanelStyle.Borderless)
@@ -66,28 +68,28 @@ public sealed class Plugin : IStellarPlugin
                 {
                     new RowElement(new HudElement[]
                     {
-                        new PillElement(() => $"Lv {_snapshot.Level}"),
-                        new TextElement(() => _snapshot.Name ?? "(unknown)"),
+                        new PillElement(() => _loc.TFormat("hud.level", _snapshot.Level)),
+                        new TextElement(() => _snapshot.Name ?? _loc.T("hud.unknownName")),
                     }, Gap: 6f),
                     new BarElement(() => Frac(_snapshot.Health, _snapshot.MaxHealth), _hpSlot.Value,
-                                   () => $"{_snapshot.Health} / {_snapshot.MaxHealth}", Prefix: "HP"),
+                                   () => $"{_snapshot.Health} / {_snapshot.MaxHealth}", Prefix: _loc.T("hud.hp")),
                     new BarElement(() => Frac(_snapshot.Stamina, _snapshot.MaxStamina), _staminaSlot.Value,
-                                   () => $"{_snapshot.Stamina} / {_snapshot.MaxStamina}", Prefix: "Stamina"),
-                    new TextElement(() => $"Pos {_snapshot.Position.X:0.0}, {_snapshot.Position.Y:0.0}, {_snapshot.Position.Z:0.0}"),
+                                   () => $"{_snapshot.Stamina} / {_snapshot.MaxStamina}", Prefix: _loc.T("hud.stamina")),
+                    new TextElement(() => _loc.TFormat("hud.pos", _snapshot.Position.X, _snapshot.Position.Y, _snapshot.Position.Z)),
                 }, Gap: 4f),
-                Else: new TextElement(() => "Player not loaded"))));
+                Else: new TextElement(() => _loc.T("hud.notLoaded")))));
 
         _toggleAction = _services.Hotkeys.DeclareAction(
             new HotkeyAction(
                 Id:              "playerhud.toggle",
-                Description:     "Toggle PlayerHUD",
+                Description:     _loc.T("hud.hotkey.toggle"),
                 SuggestedDefault: new KeyBinding(StellarKeyCode.F11)),
             callback: () => _hud.SetVisible(!_hud.IsShown));
 
         _pauseAction = _services.Hotkeys.DeclareAction(
             new HotkeyAction(
                 Id:              "playerhud.pause",
-                Description:     "Pause PlayerHUD snapshot refresh",
+                Description:     _loc.T("hud.hotkey.pause"),
                 SuggestedDefault: new KeyBinding(StellarKeyCode.F11, ModifierKeys.Ctrl)),
             callback: TogglePause);
 
@@ -107,14 +109,14 @@ public sealed class Plugin : IStellarPlugin
     private void RegisterColours()
     {
         var registry = _services.Theme.ColorRegistry;
-        _hpSlot = registry.Register("PlayerHUD.HpBar.Fill", "HP bar", new Dictionary<ThemePreset, ColorRgba>
+        _hpSlot = registry.Register("PlayerHUD.HpBar.Fill", _loc.T("hud.color.hpBar"), new Dictionary<ThemePreset, ColorRgba>
         {
             [ThemePreset.Default] = ColorRgba.FromHex(0x4CC15Cffu),
             [ThemePreset.Dark]    = ColorRgba.FromHex(0x52A35Effu),
             [ThemePreset.Light]   = ColorRgba.FromHex(0x46C85Effu),
             [ThemePreset.Crimson] = ColorRgba.FromHex(0xE04848ffu),
         });
-        _staminaSlot = registry.Register("PlayerHUD.StaminaBar.Fill", "Stamina bar", new Dictionary<ThemePreset, ColorRgba>
+        _staminaSlot = registry.Register("PlayerHUD.StaminaBar.Fill", _loc.T("hud.color.staminaBar"), new Dictionary<ThemePreset, ColorRgba>
         {
             [ThemePreset.Default] = ColorRgba.FromHex(0xF4A23Fffu),
             [ThemePreset.Dark]    = ColorRgba.FromHex(0xF9A24Bffu),
