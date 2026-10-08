@@ -5,7 +5,7 @@
   "hud.hotkey.toggle": "PlayerHUD 전환",
   "hud.hp": "HP",
   "hud.level": "Lv {0}",
-  "hud.notLoaded": "플레이어 불러오지 않음",
+  "hud.notLoaded": "플레이어 정보를 불러오지 못함",
   "hud.pos": "위치 {0:0.0}, {1:0.0}, {2:0.0}",
   "hud.stamina": "스태미나",
   "hud.unknownName": "(알 수 없음)",
