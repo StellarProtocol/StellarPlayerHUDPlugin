@@ -1,8 +1,8 @@
 {
   "hud.color.hpBar": "HP 바",
   "hud.color.staminaBar": "스태미나 바",
-  "hud.hotkey.pause": "PlayerHUD 스냅샷 갱신 일시정지",
-  "hud.hotkey.toggle": "PlayerHUD 창 전환",
+  "hud.hotkey.pause": "플레이어 HUD 스냅샷 갱신 일시정지",
+  "hud.hotkey.toggle": "플레이어 HUD 창 전환",
   "hud.hp": "HP",
   "hud.level": "Lv {0}",
   "hud.notLoaded": "플레이어 정보 없음",
