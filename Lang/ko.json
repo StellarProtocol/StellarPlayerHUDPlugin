@@ -1,0 +1,13 @@
+{
+  "hud.color.hpBar": "HP 바",
+  "hud.color.staminaBar": "스태미나 바",
+  "hud.hotkey.pause": "플레이어 HUD 스냅샷 갱신 일시정지",
+  "hud.hotkey.toggle": "플레이어 HUD 창 전환",
+  "hud.hp": "HP",
+  "hud.level": "Lv {0}",
+  "hud.notLoaded": "플레이어 정보 없음",
+  "hud.pos": "위치 {0:0.0}, {1:0.0}, {2:0.0}",
+  "hud.stamina": "스태미나",
+  "hud.unknownName": "(알 수 없음)",
+  "hud.window.title": "플레이어 HUD"
+}
